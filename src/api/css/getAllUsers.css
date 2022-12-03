@@ -1,0 +1,33 @@
+.userTable {
+    margin: 30px 50px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+.userTable tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.userTable tr:hover {
+    background-color: #ddd;
+}
+
+.userTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #2e74ad;
+    color: white;
+    min-width: 200px;
+  }
+
+img {
+    height: 60px;
+    width: 60px;
+}
+
+.userTable td{
+    width: 200px;
+    height: 70px;
+    
+}
