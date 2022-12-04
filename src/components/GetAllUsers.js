@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
-import {userApi} from './config';
-import Modal from '../components/Modal';
+import {userApi} from '../api/config';
+import Modal from './Modal';
 import './css/getAllUsers.css';
 
 const UserTable = (props) => {
+    console.log('INFO: UserTable fn: Mapping API response into table')
     const [show, setShow] = useState(false);
     return (
         <tr key={props.id}>
@@ -21,6 +22,7 @@ const UserTable = (props) => {
 }
 
 function GetAllUsers() {
+    console.log('INFO: GetAllUsers fn: Loading all users')
     const [error, setError] = useState(null);
     const [users, setUsers] = useState([])
     const [pageCount, setPageCount] = useState(0);
@@ -37,15 +39,19 @@ function GetAllUsers() {
             method: 'get',
             url: `${userApi.baseURL}${userApi.allUsersEndpoint}?page=${currentPage}`
         }).then(data => {
+            console.log('INFO: handleFetch fn: Successful API call for all users')
+            console.log('DEBUG: handleFetch fn: API response: ' + JSON.stringify(data))
             setIsLoaded(true)
             setUsers(data.data.data)
             setPageCount(data.data.total_pages);
         }).catch(err => {
+            console.log('ERROR: handleFetch fn: Error in API call for all users:' + err)
             setError(err)
         })
     }
 
     const handlePageChange = (selectedObject) => {
+        console.log('INFO: handlePageChange fn: Changing page of results')
         if(selectedObject.selected === 1){
             setcurrentPage(currentPage++)
         } else {
