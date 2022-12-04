@@ -71,3 +71,13 @@ img {
     margin-right: 10px;
     cursor: pointer;
 }
+
+#edit {
+    text-decoration: underline;
+    font-size: 22px;
+    color:#2e74ad;
+}
+
+#edit:hover {
+    cursor: pointer;
+}
