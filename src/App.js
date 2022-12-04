@@ -2,7 +2,7 @@
 import './App.css';
 import Header from "./components/Header";
 import SearchBar from './components/SearchBar';
-import GetAllUsers from './api/GetAllUsers';
+import GetAllUsers from './components/GetAllUsers';
 
 function App() {
   
