@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import './css/search.css';
 
-const SearchBar = () => {
-    const [name, setName] = useState(" ");
+const SearchBar = ({handleSearch}) => {
+    const [searchTerm, setSearchTerm] = useState(" ");
 
     const handleInput = event => {
-        setName(event.target.value);
+      setSearchTerm(event.target.value);
       };
     
       const search = () => {
-        console.log(name);
+        handleSearch(searchTerm)
+        // console.log(searchTerm);
       };
 
       const handleKeyDown = event => {
         if (event.key === 'Enter') {
-          setName(event.target.value);
+          setSearchTerm(event.target.value);
           search();
         }
       };
