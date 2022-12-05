@@ -7,7 +7,6 @@ import Modal from './Modal';
 import './css/getAllUsers.css';
 
 const UserTable = (props) => {
-    console.log('INFO: UserTable fn: Mapping API response into table')
     const [show, setShow] = useState(false);
     return (
         <tr key={props.id}>
@@ -21,14 +20,22 @@ const UserTable = (props) => {
     )
 }
 
-function GetAllUsers() {
+function GetAllUsers(props) {
     console.log('INFO: GetAllUsers fn: Loading all users')
     const [error, setError] = useState(null);
     const [users, setUsers] = useState([])
     const [pageCount, setPageCount] = useState(0);
     let [currentPage, setcurrentPage] = useState(1);
     const [isLoaded, setIsLoaded] = useState(false);
-    
+
+    let searchedUsers;
+
+    if(props.searchTerm.length > 1) {
+        console.log('INFO: GetAllUsers fn: Search term is: ' + props.searchTerm )
+        searchedUsers = users.filter(users => users.email.includes(props.searchTerm) || users.last_name.includes(props.searchTerm) )
+    } else {
+        searchedUsers = users
+    }
 
     useEffect(() => {
         handleFetch()
@@ -40,7 +47,7 @@ function GetAllUsers() {
             url: `${userApi.baseURL}${userApi.allUsersEndpoint}?page=${currentPage}`
         }).then(data => {
             console.log('INFO: handleFetch fn: Successful API call for all users')
-            console.log('DEBUG: handleFetch fn: API response: ' + JSON.stringify(data))
+            console.log('DEBUG: handleFetch fn: API response: ', JSON.stringify(data))
             setIsLoaded(true)
             setUsers(data.data.data)
             setPageCount(data.data.total_pages);
@@ -76,7 +83,8 @@ function GetAllUsers() {
                             <th className='tableHeading'>Email Address</th>
                             <th className='tableHeading'>Edit</th>
                         </tr>
-                        {users.map((users) => {
+                        {searchedUsers.map((users) => {
+                            console.log('INFO: UserTable fn: Mapping API response into table')
                             return (
                                 <UserTable
                                     id={users.id}
